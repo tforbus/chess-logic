@@ -69,11 +69,7 @@ var chessLogic = (function () {
         var hasSameRank = src.rank === dst.rank;
         var hasSameFile = src.file === dst.file;
 
-        // Rook must move.
-        if (hasSameRank && hasSameFile) { return false; }
-        else if (hasSameRank && !hasSameFile) { return true; }
-        else if (!hasSameRank && hasSameFile) { return true; }
-        else { return false; }
+        return hasSameRank && !hasSameFile || !hasSameRank && hasSameFile;
     };
 
     api._private.isValidBishopMove = function (src, dst) {
@@ -93,9 +89,6 @@ var chessLogic = (function () {
     };
 
     api._private.isValidKnightMove = function (src, dst) {
-        var isNonMove = src.rank === dst.rank && src.file === dst.file;
-        if (isNonMove) { return false; }
-
         // 8 possible jumps by a knight.
         var pairs = [
             [src.rankNum - 1, src.file - 2],
