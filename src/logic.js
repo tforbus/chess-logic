@@ -44,9 +44,13 @@ var chessLogic = (function () {
     api._private.getRankAndFileFromCoordinate = function (coordinate) {
         if (!coordinate || coordinate.length < 2) { return null; }
 
+        var rank = coordinate.charAt(0);
+        var file = coordinate.charAt(1);
         return {
-            rank: coordinate.charAt(0),
-            file: parseInt(coordinate.charAt(1), 10)
+            rank: rank,
+            file: parseInt(file, 10),
+            // Used for rank arithmetic.
+            rankNum: api._private.ranks.indexOf(rank)
         };
     };
 
@@ -100,11 +104,7 @@ var chessLogic = (function () {
 
         if (hasSameRank && hasSameFile) { return false; }
 
-        // Map ranks to files (a=0, b=1...) to perform arithmetic.
-        var srcRankNum = api._private.ranks.indexOf(src.rank);
-        var dstRankNum = api._private.ranks.indexOf(dst.rank);
-
-        return Math.abs(srcRankNum - dstRankNum) === Math.abs(src.file - dst.file);
+        return Math.abs(src.rankNum - dst.rankNum) === Math.abs(src.file - dst.file);
     };
 
     api._private.isValidQueenMove = function (srcCoord, dstCoord) {
@@ -120,24 +120,21 @@ var chessLogic = (function () {
 
         var isNonMove = src.rank === dst.rank && src.file === dst.file;
         if (isNonMove) { return false; }
-        
-        var srcRankNum = api._private.ranks.indexOf(src.rank);
-        var dstRankNum = api._private.ranks.indexOf(dst.rank);
 
         // 8 possible jumps by a knight.
         var pairs = [
-            [srcRankNum - 1, src.file - 2],
-            [srcRankNum - 2, src.file - 1],
-            [srcRankNum - 2, src.file + 1],
-            [srcRankNum - 1, src.file + 2],
-            [srcRankNum + 1, src.file + 2],
-            [srcRankNum + 2, src.file + 1],
-            [srcRankNum + 2, src.file - 1],
-            [srcRankNum + 1, src.file - 2]
+            [src.rankNum - 1, src.file - 2],
+            [src.rankNum - 2, src.file - 1],
+            [src.rankNum - 2, src.file + 1],
+            [src.rankNum - 1, src.file + 2],
+            [src.rankNum + 1, src.file + 2],
+            [src.rankNum + 2, src.file + 1],
+            [src.rankNum + 2, src.file - 1],
+            [src.rankNum + 1, src.file - 2]
         ];
 
         var x = pairs.filter(function (pair) {
-            return pair[0] === dstRankNum;
+            return pair[0] === dst.rankNum;
         }).filter(function (pair) {
             return pair[1] === dst.file;
         });
@@ -152,10 +149,7 @@ var chessLogic = (function () {
         var isNonMove = src.rank === dst.rank && src.file === dst.file;
         if (isNonMove) { return false; }
 
-        var srcRankNum = api._private.ranks.indexOf(src.rank);
-        var dstRankNum = api._private.ranks.indexOf(dst.rank);
-
-        return Math.abs(srcRankNum - dstRankNum) <= 1 &&
+        return Math.abs(src.rankNum - dst.rankNum) <= 1 &&
             Math.abs(src.file - dst.file) <= 1;
 
     };

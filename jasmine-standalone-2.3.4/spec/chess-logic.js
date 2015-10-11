@@ -36,6 +36,7 @@ describe('#getRankAndFileFromCoordinate', function () {
         var obj = chessLogic._private.getRankAndFileFromCoordinate('a1');
         expect(obj.rank).toBe('a');
         expect(obj.file).toBe(1);
+        expect(obj.rankNum).toBe(0);
     });
 });
 
