@@ -1,22 +1,6 @@
 var chessLogic = (function () {
     'use strict';
 
-    var PIECES = {
-        WHITE_PAWN: 'P',
-        WHITE_KNIGHT: 'N',
-        WHITE_BISHOP: 'B',
-        WHITE_ROOK: 'R',
-        WHITE_QUEEN: 'Q',
-        WHITE_KING: 'K',
-
-        BLACK_PAWN: 'p',
-        BLACK_KNIGHT: 'n',
-        BLACK_BISHOP: 'b',
-        BLACK_ROOK: 'r',
-        BLACK_QUEEN: 'q',
-        BLACK_KING: 'k'
-    };
-
     var api = {
         _private: {}
     };
@@ -139,7 +123,6 @@ var chessLogic = (function () {
 
         return Math.abs(src.rankNum - dst.rankNum) <= 1 &&
             Math.abs(src.file - dst.file) <= 1;
-
     };
 
     api._private.isValidPawnMove = function (src, dst) {
@@ -159,7 +142,10 @@ var chessLogic = (function () {
         }
         
         return false;
+    };
 
+    api.isValidMove = function isValidMove(srcCoord, dstCoord, piece) {
+        // TODO
     };
 
     return api;
