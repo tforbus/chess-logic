@@ -228,3 +228,82 @@ describe('#isValidKnightMove', function () {
         expect(chessLogic._private.isValidKnightMove(src, dst)).toBe(true);
     });
 });
+
+describe('#isValidKingMove', function () {
+    it('should return false for a non-move', function () {
+        var src = chessLogic._private.getCoordinateFromRankAndFile('e', 1);
+        var dst = chessLogic._private.getCoordinateFromRankAndFile('e', 1);
+
+        expect(chessLogic._private.isValidKingMove(src, dst)).toBe(false);
+    });
+
+    it('should return false for moving 2 files', function () {
+        var src = chessLogic._private.getCoordinateFromRankAndFile('e', 1);
+        var dst = chessLogic._private.getCoordinateFromRankAndFile('e', 3);
+
+        expect(chessLogic._private.isValidKingMove(src, dst)).toBe(false);
+    });
+
+    it('should return false for moving 2 ranks', function () {
+        var src = chessLogic._private.getCoordinateFromRankAndFile('e', 1);
+        var dst = chessLogic._private.getCoordinateFromRankAndFile('c', 1);
+
+        expect(chessLogic._private.isValidKingMove(src, dst)).toBe(false);
+    });
+
+    it('should return true for moving left', function () {
+        var src = chessLogic._private.getCoordinateFromRankAndFile('e', 1);
+        var dst = chessLogic._private.getCoordinateFromRankAndFile('d', 1);
+
+        expect(chessLogic._private.isValidKingMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for moving right', function () {
+        var src = chessLogic._private.getCoordinateFromRankAndFile('e', 1);
+        var dst = chessLogic._private.getCoordinateFromRankAndFile('f', 1);
+
+        expect(chessLogic._private.isValidKingMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for moving up', function () {
+        var src = chessLogic._private.getCoordinateFromRankAndFile('e', 1);
+        var dst = chessLogic._private.getCoordinateFromRankAndFile('e', 2);
+
+        expect(chessLogic._private.isValidKingMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for moving down', function () {
+        var src = chessLogic._private.getCoordinateFromRankAndFile('e', 2);
+        var dst = chessLogic._private.getCoordinateFromRankAndFile('e', 1);
+
+        expect(chessLogic._private.isValidKingMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for moving up/left', function () {
+        var src = chessLogic._private.getCoordinateFromRankAndFile('e', 2);
+        var dst = chessLogic._private.getCoordinateFromRankAndFile('d', 3);
+
+        expect(chessLogic._private.isValidKingMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for moving up/right', function () {
+        var src = chessLogic._private.getCoordinateFromRankAndFile('e', 2);
+        var dst = chessLogic._private.getCoordinateFromRankAndFile('f', 3);
+
+        expect(chessLogic._private.isValidKingMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for moving down/left', function () {
+        var src = chessLogic._private.getCoordinateFromRankAndFile('e', 2);
+        var dst = chessLogic._private.getCoordinateFromRankAndFile('d', 1);
+
+        expect(chessLogic._private.isValidKingMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for moving down/right', function () {
+        var src = chessLogic._private.getCoordinateFromRankAndFile('e', 2);
+        var dst = chessLogic._private.getCoordinateFromRankAndFile('f', 1);
+
+        expect(chessLogic._private.isValidKingMove(src, dst)).toBe(true);
+    });
+});

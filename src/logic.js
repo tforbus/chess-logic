@@ -145,5 +145,20 @@ var chessLogic = (function () {
         return x.length > 0;
     };
 
+    api._private.isValidKingMove = function (srcCoord, dstCoord) {
+        var src = api._private.getRankAndFileFromCoordinate(srcCoord);
+        var dst = api._private.getRankAndFileFromCoordinate(dstCoord);
+
+        var isNonMove = src.rank === dst.rank && src.file === dst.file;
+        if (isNonMove) { return false; }
+
+        var srcRankNum = api._private.ranks.indexOf(src.rank);
+        var dstRankNum = api._private.ranks.indexOf(dst.rank);
+
+        return Math.abs(srcRankNum - dstRankNum) <= 1 &&
+            Math.abs(src.file - dst.file) <= 1;
+
+    };
+
     return api;
 }());
