@@ -308,3 +308,54 @@ describe('#isValidKingMove', function () {
         expect(chessLogic._private.isValidKingMove(src, dst)).toBe(true);
     });
 });
+
+describe('#isValidPawnMove', function () {
+    it('should return false for a non-move', function () {
+        var src = chessLogic._private.getRankAndFileFromCoordinate('e2');
+        var dst = chessLogic._private.getRankAndFileFromCoordinate('e2');
+
+        expect(chessLogic._private.isValidPawnMove(src, dst)).toBe(false);
+    });
+
+    it('should return false for moving 2 files on a move other than first', function () {
+        var src = chessLogic._private.getRankAndFileFromCoordinate('e3');
+        var dst = chessLogic._private.getRankAndFileFromCoordinate('e5');
+
+        expect(chessLogic._private.isValidPawnMove(src, dst)).toBe(false);
+    });
+
+    it('should return true for moving 2 files on the first move (white)', function () {
+        var src = chessLogic._private.getRankAndFileFromCoordinate('e2');
+        var dst = chessLogic._private.getRankAndFileFromCoordinate('e4');
+
+        expect(chessLogic._private.isValidPawnMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for moving 2 files on the first move (black)', function () {
+        var src = chessLogic._private.getRankAndFileFromCoordinate('c7');
+        var dst = chessLogic._private.getRankAndFileFromCoordinate('c5');
+
+        expect(chessLogic._private.isValidPawnMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for moving once (white)', function () {
+        var src = chessLogic._private.getRankAndFileFromCoordinate('d4');
+        var dst = chessLogic._private.getRankAndFileFromCoordinate('d5');
+
+        expect(chessLogic._private.isValidPawnMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for moving once (black)', function () {
+        var src = chessLogic._private.getRankAndFileFromCoordinate('d5');
+        var dst = chessLogic._private.getRankAndFileFromCoordinate('d4');
+
+        expect(chessLogic._private.isValidPawnMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for a capture', function () {
+        var src = chessLogic._private.getRankAndFileFromCoordinate('e5');
+        var dst = chessLogic._private.getRankAndFileFromCoordinate('e6');
+
+        expect(chessLogic._private.isValidPawnMove(src, dst)).toBe(true);
+    });
+});

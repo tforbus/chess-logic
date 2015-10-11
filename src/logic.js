@@ -101,9 +101,9 @@ var chessLogic = (function () {
         return Math.abs(src.rankNum - dst.rankNum) === Math.abs(src.file - dst.file);
     };
 
-    api._private.isValidQueenMove = function (srcCoord, dstCoord) {
-        var isValidBishopMove = api._private.isValidBishopMove(srcCoord, dstCoord);
-        var isValidRookMove = api._private.isValidRookMove(srcCoord, dstCoord);
+    api._private.isValidQueenMove = function (src, dst) {
+        var isValidBishopMove = api._private.isValidBishopMove(src, dst);
+        var isValidRookMove = api._private.isValidRookMove(src, dst);
 
         return isValidBishopMove || isValidRookMove;
     };
@@ -143,13 +143,23 @@ var chessLogic = (function () {
     };
 
     api._private.isValidPawnMove = function (src, dst) {
-        var isFirstMoveWhite = src.rank === 2 && (dst.rank === 4 || dst.rank === 3);
-        var isFirstMoveBlack = src.rank === 7 && (dst.rank === 5 || dst.rank === 6);
+        var isFirstMoveWhite = src.file === 2 && (dst.file === 4 || dst.file === 3);
+        var isFirstMoveBlack = src.file === 7 && (dst.file === 5 || dst.file === 6);
 
         if (isFirstMoveWhite || isFirstMoveBlack) { return true; }
 
-        return (dst.rankNum - src.rankNum === 1) &&
-            Math.abs(dst.file - src.file) <= 1;
+        // Moving up (or down) the board.
+        if (src.rankNum - dst.rankNum === 0 && Math.abs(src.file - dst.file) === 1) {
+            return true;
+        }
+
+        // Capture
+        if (Math.abs(src.rankNum - dst.rankNum) === 1 && dst.file - src.file === 1) {
+            return true;
+        }
+        
+        return false;
+
     };
 
     return api;
