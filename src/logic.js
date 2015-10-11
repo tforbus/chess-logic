@@ -124,13 +124,16 @@ var chessLogic = (function () {
 
         if (isFirstMoveWhite || isFirstMoveBlack) { return true; }
 
+        var rankDiff = src.rankNum - dst.rankNum;
+        var fileDiff = src.file - dst.file;
+
         // Moving up (or down) the board.
-        if (src.rankNum - dst.rankNum === 0 && Math.abs(src.file - dst.file) === 1) {
+        if (rankDiff === 0 && Math.abs(fileDiff) === 1) {
             return true;
         }
 
         // Capture
-        if (Math.abs(src.rankNum - dst.rankNum) === 1 && dst.file - src.file === 1) {
+        if (Math.abs(rankDiff) === 1 && Math.abs(fileDiff) === 1) {
             return true;
         }
         

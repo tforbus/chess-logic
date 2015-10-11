@@ -352,9 +352,16 @@ describe('#isValidPawnMove', function () {
         expect(chessLogic._private.isValidPawnMove(src, dst)).toBe(true);
     });
 
-    it('should return true for a capture', function () {
+    it('should return true for a capture (white)', function () {
         var src = chessLogic._private.getRankAndFileFromCoordinate('e5');
-        var dst = chessLogic._private.getRankAndFileFromCoordinate('e6');
+        var dst = chessLogic._private.getRankAndFileFromCoordinate('f6');
+
+        expect(chessLogic._private.isValidPawnMove(src, dst)).toBe(true);
+    });
+
+    it('should return true for a capture (black)', function () {
+        var src = chessLogic._private.getRankAndFileFromCoordinate('f6');
+        var dst = chessLogic._private.getRankAndFileFromCoordinate('e5');
 
         expect(chessLogic._private.isValidPawnMove(src, dst)).toBe(true);
     });
