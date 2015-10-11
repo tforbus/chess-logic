@@ -81,10 +81,7 @@ var chessLogic = (function () {
      * @param {string} dstCoord
      * @return {Boolean}
      */
-    api._private.isValidRookMove = function (srcCoord, dstCoord) {
-        var src = api._private.getRankAndFileFromCoordinate(srcCoord);
-        var dst = api._private.getRankAndFileFromCoordinate(dstCoord);
-
+    api._private.isValidRookMove = function (src, dst) {
         var hasSameRank = src.rank === dst.rank;
         var hasSameFile = src.file === dst.file;
 
@@ -95,10 +92,7 @@ var chessLogic = (function () {
         else { return false; }
     };
 
-    api._private.isValidBishopMove = function (srcCoord, dstCoord) {
-        var src = api._private.getRankAndFileFromCoordinate(srcCoord);
-        var dst = api._private.getRankAndFileFromCoordinate(dstCoord);
-
+    api._private.isValidBishopMove = function (src, dst) {
         var hasSameRank = src.rank === dst.rank;
         var hasSameFile = src.file === dst.file;
 
@@ -114,10 +108,7 @@ var chessLogic = (function () {
         return isValidBishopMove || isValidRookMove;
     };
 
-    api._private.isValidKnightMove = function (srcCoord, dstCoord) {
-        var src = api._private.getRankAndFileFromCoordinate(srcCoord);
-        var dst = api._private.getRankAndFileFromCoordinate(dstCoord);
-
+    api._private.isValidKnightMove = function (src, dst) {
         var isNonMove = src.rank === dst.rank && src.file === dst.file;
         if (isNonMove) { return false; }
 
@@ -142,16 +133,23 @@ var chessLogic = (function () {
         return x.length > 0;
     };
 
-    api._private.isValidKingMove = function (srcCoord, dstCoord) {
-        var src = api._private.getRankAndFileFromCoordinate(srcCoord);
-        var dst = api._private.getRankAndFileFromCoordinate(dstCoord);
-
+    api._private.isValidKingMove = function (src, dst) {
         var isNonMove = src.rank === dst.rank && src.file === dst.file;
         if (isNonMove) { return false; }
 
         return Math.abs(src.rankNum - dst.rankNum) <= 1 &&
             Math.abs(src.file - dst.file) <= 1;
 
+    };
+
+    api._private.isValidPawnMove = function (src, dst) {
+        var isFirstMoveWhite = src.rank === 2 && (dst.rank === 4 || dst.rank === 3);
+        var isFirstMoveBlack = src.rank === 7 && (dst.rank === 5 || dst.rank === 6);
+
+        if (isFirstMoveWhite || isFirstMoveBlack) { return true; }
+
+        return (dst.rankNum - src.rankNum === 1) &&
+            Math.abs(dst.file - src.file) <= 1;
     };
 
     return api;
