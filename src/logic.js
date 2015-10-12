@@ -1,4 +1,4 @@
-var chessLogic = (function () {
+(function (window, undefined) {
     'use strict';
 
     var api = {
@@ -144,5 +144,10 @@ var chessLogic = (function () {
         // TODO
     };
 
+    if (!window.tfChess) {
+        window.tfChess = {};
+    }
+    window.tfChess.moveValidator = api;
+
     return api;
-}());
+}(window));

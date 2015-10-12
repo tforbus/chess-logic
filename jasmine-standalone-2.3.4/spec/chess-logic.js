@@ -1,3 +1,7 @@
+beforeEach(function () {
+    chessLogic = window.tfChess.moveValidator;
+});
+
 describe('chess-logic', function () {
     it('should not be null', function () {
         expect(chessLogic).not.toBe(null);
